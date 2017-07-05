@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TodoApp from './TodoApp.js'
 
 
 class InputLine extends React.Component{
@@ -19,6 +20,9 @@ class InputLine extends React.Component{
   }
   handleSubmit(e){
     e.preventDefault();
+    var tsk=this.state.task;
+
+    this.props.submit(tsk)
   }
 
   render(){
