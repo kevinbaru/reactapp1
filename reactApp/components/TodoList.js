@@ -6,9 +6,18 @@ import Todo from './Todo.js';
 class TodoList extends React.Component {
 
   render(){
+    console.log('props', this.props);
     return(
       <ul>
-        {this.props.todos.map((todo,index) =><Todo toggle={()=>this.props.togglingTodo(todo._id)} xClick={() => this.props.todoXClick(todo._id)} key={todo._id} todo={todo}/> )}
+        {
+          this.props.todos.map((todo,index) =>
+          <Todo
+            toggle={()=>this.props.togglingTodo(todo._id)}
+            xClick={() => this.props.todoXClick(todo._id)}
+            key={todo._id}
+            todo={todo}/>
+          )
+        }
       </ul>
     )
   }

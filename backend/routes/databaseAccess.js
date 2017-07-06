@@ -62,15 +62,15 @@ router.post('/add', (req, res) => {
 
 router.post('/remove',(req,res)=>{
   TodoItem.findByIdAndRemove(req.body.id)
+  // .then(response => {
+  //   // res.send(response);
+  //   return TodoItem.find()
+  // })
   .then(response => {
-    // res.send(response);
-    return TodoItem.find()
-  })
-  .then(response => {
-    res.send(response);
+    res.send({ success: true });
   })
   .catch(error => {
-    res.send(error);
+    res.send({ success: false});
   })
 
 

@@ -21,14 +21,14 @@ class TodoApp extends React.Component{
     this.addTodo=this.addTodo.bind(this);
     this.removeTodo=this.removeTodo.bind(this);
     this.togglingTodo=this.togglingTodo.bind(this);
-
   }
+
   componentDidMount(){
     //this.setState({todos:[]})
+    console.log('mounting...')
     axios.get(dbUrl+'/all')
     .then((response)=>{
       this.setState({todos:response.data})
-
     })
   }
 
@@ -53,17 +53,27 @@ class TodoApp extends React.Component{
 
     axios.post(dbUrl+'/remove', {id: id})
     .then(function (response) {
-      // var tasks=self.state.todos;
-      // tasks.splice(response);
-    // /  self.setState({todos:tasks})
-    self.setState({todos:response.data})
-
+      if (response.data.success) {
+        var tasks=self.state.todos
+        // tasks.splice(response);
+        // /  self.setState({todos:tasks})
+        // console.log(tasks)
+        // console.log(id);
+        // console.log();
+        self.setState({todos: tasks.filter(i => i._id != id)})
+      } else {
+        alert('failed to remove...')
+      }
+      // console.log('before?', self.state);
     })
     .catch(function (error) {
       console.log(error)
     });
 
+    // console.log('after? ', this.state);
 
+
+    // console.log("TODO....")
   }
 
   togglingTodo(id){
@@ -91,18 +101,13 @@ class TodoApp extends React.Component{
     return(
       <div>
       <InputLine submit={(task)=>this.addTodo(task)}/>
-       <TodoList todos={this.state.todos} togglingTodo={(index)=>this.togglingTodo(index)} todoXClick={(index)=>this.removeTodo(index)} />
+       <TodoList
+         todos={this.state.todos}
+         togglingTodo={(x)=>this.togglingTodo(x)}
+         todoXClick={(x)=>this.removeTodo(x)} />
       </div>
     )
   }
-
-
-
 }
-
-
-
-
-
 
 export default TodoApp;

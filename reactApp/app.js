@@ -6,14 +6,5 @@ import TodoApp from './components/TodoApp.js';
 
 
 
-
-
-
-
-
-
-
-
-
 ReactDOM.render(<TodoApp />,
    document.getElementById('root'));
